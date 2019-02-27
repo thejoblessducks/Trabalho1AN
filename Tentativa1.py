@@ -1,6 +1,6 @@
+from __future__ import division
 import numpy as np
 import math as mt
-
 '''-----------------------------------------------------------------------------
                         Auxiliar Functions: factorial
 -----------------------------------------------------------------------------'''
@@ -12,7 +12,7 @@ def fac(n):
 
 error = lambda x : 1.0*(10**-x) #returns value of error being used
 
-ratioSeries2 = lambda n : (n**2+2*n+1)/(4*(n**2)+10*n+6)
+#ratioSeries2 = lambda n : (n**2+2*n+1)/(4*(n**2)+10*n+6)
 
 '''-----------------------------------------------------------------------------
                         Calculate machine epsilon
@@ -40,30 +40,43 @@ def mEps():
 -----------------------------------------------------------------------------'''
 #Recursive single term series
 def somaTermosE2(n):
-    #an+1/an == (n^2+2n+1)/(4n²+10n+6)
-    if(n==0) return 1
+    #an+1/an == (n^2+2n+1)/(4n^2+10n+6)
+    if(n==0):
+        return 1
     return ratioSeries2(n-1)*somaTermosE2(n-1)
+#ratioSeries2
+def ratioSeries2(n):
+    num=(n**2)+2*n+1
+    den=(4*(n**2))+10*n+66
+    return num/den
 #findN2
 def findN2(e,exact):
-    soma=somaTermosE2(0)
+    bf=9/(2*mt.sqrt(3))
+    sum=1
+    last_sum=1
     n=0
-    while (abs(exact-soma)>e):
+    while (abs(exact-last_sum)>e):
+        print "     ->n: "+str(n)+":"
+        print "         Sum: "+str(sum)
+        last_sum=sum
         n+=1
-        soma+=somaTermosE2(n)
-    print "e: "+str(e)
-    print "n: "+str(n)
-    print "Sn: "+str(float(soma))
-    print "|S-Sn|: "+str(float(abs(exact-soma)))
-
+        #break;
+        sum+=ratioSeries2(n-1)*last_sum
+    print "     |-e: "+str(e)
+    print "     |-n: "+str(n)
+    print "     |-Sn: "+str(float(sum))
+    print "     |-|S-Sn|: "+str(float(abs(exact-sum)))
+    return
 #E2
-def Ex2n4(exact_value=1/4):#Takes either exact pi value for ex4 or L=1/4
+def Ex2n4(exact_value):#Takes either exact pi value for ex4 or L=1/4
     for i in range(8,16):
         err = error(i)
+        print str(err)+" :"
         findN2(err,exact_value)
-
+        return
 #Tests--------------------------------------------------------------------------
-
-print fac(5)
+print ratioSeries2(1)
+Ex2n4(1/4)
 
 
 #print somaUnica(2)
