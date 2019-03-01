@@ -2,7 +2,7 @@ from __future__ import division
 import numpy as np
 import math as mt
 '''-----------------------------------------------------------------------------
-                        Auxiliar Functions: factorial
+                        Auxiliar Functions: factorial-not used
 -----------------------------------------------------------------------------'''
 #Recursive factorial
 def fac(n):
@@ -42,33 +42,65 @@ def mEps():
 def ratioSeries2(n):
     return ((n**2)+2*n+1)/((4*(n**2))+10*n+6)
 #findN2
-def findN2(e,exact):
+def findN2(exact):
     bf=9/(2*mt.sqrt(3))
     a=1
     sum=a
     Sn=bf*sum
     n=0
-    while (abs(exact-Sn)>e):
-        a=ratioSeries2(n)*a
-        n+=1
-        sum+=a
-        Sn=bf*sum
-    print "     |-n: "+str(n)
-    print "     |-Sn: "+str(bf*sum)
-    print "     |-|S-Sn|: "+str(abs(exact-Sn))
+    for i in range(8,16):
+        e = error(i)
+        print "Erro "+str(e)+":"
+        while (abs(exact-Sn)>e):
+            a=ratioSeries2(n)*a
+            n+=1
+            sum+=a
+            Sn=bf*sum
+        print "     |-n: "+str(n)
+        print "     |-Sn: "+str(bf*sum)
+        print "     |-|S-Sn|: "+str(abs(exact-Sn))
     return
 #E2
-def Ex2n4(exact_value):#Takes either exact pi value for ex4 or L=1/4
+'''def Ex2n4(exact_value):#Takes either exact pi value for ex4 or L=1/4
     for i in range(8,16):
         err = error(i)
         print "Erro "+str(err)+":"
         findN2(err,exact_value)
-    return
+    return'''
 
+
+'''-----------------------------------------------------------------------------
+                                Exercise 3
+-----------------------------------------------------------------------------'''
+#find N
+def findN3(exact):
+    a=1
+    n=0
+    sum=a
+    for i in range(8,16):
+        e = error(i)
+        print "Erro "+str(e)+":"
+        while(abs(exact-4*sum)>e):
+            n+=1
+            a=((-1)**n)/(2*n+1)
+
+            sum+=a
+        print "     |-n: "+str(n)
+        print "     |-Sn: "+str(4*sum)
+        print "     |-|S-Sn|: "+str(abs(exact-4*sum))
+    return
+#Ex3
+'''def Ex3n4(exact_value):
+    for i in range(8,16):
+        err = error(i)
+        print "Erro "+str(err)+":"
+        findN3(err,exact_value)
+    return'''
 #Tests--------------------------------------------------------------------------
-print mt.pi
 print "Exercicio 2:"
-Ex2n4(mt.pi)
+findN2(mt.pi)
+print "Exercicio 3:"
+#findN3(mt.pi)
 print eps
 
 #print somaUnica(2)
