@@ -38,46 +38,38 @@ def mEps():
 '''-----------------------------------------------------------------------------
                                 Exercise 2
 -----------------------------------------------------------------------------'''
-#Recursive single term series
-def somaTermosE2(n):
-    #an+1/an == (n^2+2n+1)/(4n^2+10n+6)
-    if(n==0):
-        return 1
-    return ratioSeries2(n-1)*somaTermosE2(n-1)
 #ratioSeries2
 def ratioSeries2(n):
-    num=(n**2)+2*n+1
-    den=(4*(n**2))+10*n+66
-    return num/den
+    return ((n**2)+2*n+1)/((4*(n**2))+10*n+6)
 #findN2
 def findN2(e,exact):
     bf=9/(2*mt.sqrt(3))
-    sum=1
-    last_sum=1
+    a=1
+    sum=a
+    Sn=bf*sum
     n=0
-    while (abs(exact-last_sum)>e):
-        print "     ->n: "+str(n)+":"
-        print "         Sum: "+str(sum)
-        last_sum=sum
+    while (abs(exact-Sn)>e):
+        a=ratioSeries2(n)*a
         n+=1
-        #break;
-        sum+=ratioSeries2(n-1)*last_sum
-    print "     |-e: "+str(e)
+        sum+=a
+        Sn=bf*sum
     print "     |-n: "+str(n)
-    print "     |-Sn: "+str(float(sum))
-    print "     |-|S-Sn|: "+str(float(abs(exact-sum)))
+    print "     |-Sn: "+str(bf*sum)
+    print "     |-|S-Sn|: "+str(abs(exact-Sn))
     return
 #E2
 def Ex2n4(exact_value):#Takes either exact pi value for ex4 or L=1/4
     for i in range(8,16):
         err = error(i)
-        print str(err)+" :"
+        print "Erro "+str(err)+":"
         findN2(err,exact_value)
-        return
-#Tests--------------------------------------------------------------------------
-print ratioSeries2(1)
-Ex2n4(1/4)
+    return
 
+#Tests--------------------------------------------------------------------------
+print mt.pi
+print "Exercicio 2:"
+Ex2n4(mt.pi)
+print eps
 
 #print somaUnica(2)
 #somaTotal(eps)
