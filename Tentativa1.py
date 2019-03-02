@@ -36,13 +36,32 @@ def mEps():
 
 
 '''-----------------------------------------------------------------------------
-                                Exercise 2
+                                Exercise 2/4
 -----------------------------------------------------------------------------'''
 #ratioSeries2
 def ratioSeries2(n):
     return ((n**2)+2*n+1)/((4*(n**2))+10*n+6)
-#findN2
-def findN2(exact):
+#E2
+def Ex2(L):#Applying the D'Alembert method
+    #L==174, hence,|Rn|<=a(n+1)/1-L<eps
+    bf=9/(2*mt.sqrt(3))
+    a=1
+    n=0
+    sum=a
+    a=ratioSeries2(n)*a
+    for i in range(8,16):
+        e = error(i)
+        print "Erro "+str(e)+":"
+        while (abs(a/(1-L))>e):
+            n+=1
+            sum+=a
+            a=ratioSeries2(n)*a
+        print "     |-n: "+str(n-1)
+        print "     |-Sn: "+str(bf*sum)
+    return
+#Ex2 in Ex4
+def Ex2n4():
+    exact=mt.pi
     bf=9/(2*mt.sqrt(3))
     a=1
     sum=a
@@ -60,20 +79,12 @@ def findN2(exact):
         print "     |-Sn: "+str(bf*sum)
         print "     |-|S-Sn|: "+str(abs(exact-Sn))
     return
-#E2
-'''def Ex2n4(exact_value):#Takes either exact pi value for ex4 or L=1/4
-    for i in range(8,16):
-        err = error(i)
-        print "Erro "+str(err)+":"
-        findN2(err,exact_value)
-    return'''
-
 
 '''-----------------------------------------------------------------------------
-                                Exercise 3
+                                Exercise 3/4
 -----------------------------------------------------------------------------'''
 #find N
-def findN3(exact):
+def Ex3n4(exact):
     a=1
     n=0
     sum=a
@@ -83,23 +94,37 @@ def findN3(exact):
         while(abs(exact-4*sum)>e):
             n+=1
             a=((-1)**n)/(2*n+1)
-
             sum+=a
         print "     |-n: "+str(n)
         print "     |-Sn: "+str(4*sum)
         print "     |-|S-Sn|: "+str(abs(exact-4*sum))
     return
 #Ex3
-'''def Ex3n4(exact_value):
+def Ex3():
+    #|Rn|<|an+1|<e
+    a=1
+    n=0
+    sum=a
+    a=((-1)**(n+1))/(2*(n+1)+1)
     for i in range(8,16):
-        err = error(i)
-        print "Erro "+str(err)+":"
-        findN3(err,exact_value)
-    return'''
+        e = error(i)
+        print "Erro "+str(e)+":"
+        while (abs(a)>e):
+            n+=1
+            sum+=a
+            a=((-1)**n)/(2*n+1)
+        print "     |-n: "+str(n-1)
+        print "     |-Sn: "+str(sum)
+    return
 #Tests--------------------------------------------------------------------------
 print "Exercicio 2:"
-findN2(mt.pi)
+Ex2(1/4)
+print "Exercicio 2 para exercicio 4"
+Ex2n4()
+
+
 print "Exercicio 3:"
+Ex3()
 #findN3(mt.pi)
 print eps
 
