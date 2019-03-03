@@ -117,7 +117,7 @@ def Ex3():
 #Tests--------------------------------------------------------------------------
 print "Exercicio 2:"
 start=tm.time()
-Ex2(1/4)
+Ex2()
 end=tm.time()
 print "Tempo de execucao: "+str(end-start)
 
