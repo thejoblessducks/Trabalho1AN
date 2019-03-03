@@ -38,15 +38,15 @@ def mEps():
 def ratioSeries2(n):
     return ((n**2)+2*n+1)/((4*(n**2))+10*n+6)
 #E2
-def Ex2(L):#Applying the D'Alembert method
-    #L==174, hence,|Rn|<=a(n+1)/1-L<eps
-    bf=9/(2*mt.sqrt(3))
+def Ex2():#Applying the D'Alembert method
+    L=1/4 #hence,|Rn|<=a(n+1)/1-L<eps
+    bf=9/(2*mt.sqrt(3)) #value before sum
     a=1
     n=0
     sum=a
     a=ratioSeries2(n)*a
     for i in range(8,16):
-        e = error(i)
+        e = error(i) #returns 10^-i-- error = lambda x : 1.0*(10**-x)
         print "Erro "+str(e)+":"
         while (abs(a/(1-L))>e):
             n+=1
@@ -55,6 +55,7 @@ def Ex2(L):#Applying the D'Alembert method
         print "     |-n: "+str(n-1)
         print "     |-Sn: " +str(dm.Decimal(bf*sum))
     return
+  
 #Ex2 in Ex4
 def Ex2n4():
     exact=mt.pi
@@ -64,7 +65,7 @@ def Ex2n4():
     Sn=bf*sum
     n=0
     for i in range(8,16):
-        e = error(i)
+        e = error(i) #returns 10^-i-- error = lambda x : 1.0*(10**-x)
         print "Erro "+str(e)+":"
         while (abs(exact-Sn)>e):
             a=ratioSeries2(n)*a
