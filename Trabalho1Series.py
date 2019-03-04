@@ -89,13 +89,13 @@ def Ex3n4():
     for i in range(8,16):
         e = error(i)
         print "Erro "+str(e)+":"
-        while(abs(exact-4*sum)>e):
+        while(abs(exact-sum)>e):
             n+=1
             a=((-1)**n)/(2*n+1)
             sum+=a
         print "     |-n: "+str(n)
-        print "     |-Sn: "+str(4*sum)
-        print "     |-|S-Sn|: "+str(dm.Decimal(abs(exact-4*sum)))
+        print "     |-Sn: "+str(sum)
+        print "     |-|S-Sn|: "+str(dm.Decimal(abs(exact-sum)))
     return
 #Ex3
 def Ex3():
