@@ -112,7 +112,7 @@ def Ex3():
             sum+=a
             a=((-1)**n)/(2*n+1)
         print "     |-n: "+str(n-1)
-        print "     |-Sn: "+str(dm.Decimal(sum))
+        print "     |-Sn: "+str(dm.Decimal(4*sum))
     return
 #Tests--------------------------------------------------------------------------
 print "Exercicio 2:"
