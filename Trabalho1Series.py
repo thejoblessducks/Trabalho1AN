@@ -40,13 +40,13 @@ def ratioSeries2(n):
 #E2
 def Ex2():#Applying the D'Alembert method
     L=1/4 #hence,|Rn|<=a(n+1)/1-L<eps
-    bf=9/(2*mt.sqrt(3)) #value before sum
+    bf=9/(2*mt.sqrt(3))
     a=1
     n=0
     sum=a
     a=ratioSeries2(n)*a
     for i in range(8,16):
-        e = error(i) #returns 10^-i-- error = lambda x : 1.0*(10**-x)
+        e = error(i)
         print "Erro "+str(e)+":"
         while (abs(a/(1-L))>e):
             n+=1
@@ -55,7 +55,6 @@ def Ex2():#Applying the D'Alembert method
         print "     |-n: "+str(n-1)
         print "     |-Sn: " +str(dm.Decimal(bf*sum))
     return
-  
 #Ex2 in Ex4
 def Ex2n4():
     exact=mt.pi
@@ -65,7 +64,7 @@ def Ex2n4():
     Sn=bf*sum
     n=0
     for i in range(8,16):
-        e = error(i) #returns 10^-i-- error = lambda x : 1.0*(10**-x)
+        e = error(i)
         print "Erro "+str(e)+":"
         while (abs(exact-Sn)>e):
             a=ratioSeries2(n)*a
@@ -73,30 +72,14 @@ def Ex2n4():
             sum+=a
             Sn=bf*sum
         print "     |-n: "+str(n)
-        print "     |-Sn: "+str(dm.Decimal(bf*sum))
+        print "     |-Sn: "+str(dm.Decimal(Sn))
         print "     |-|S-Sn|: "+str(dm.Decimal(abs(exact-Sn)))
     return
+
 
 '''-----------------------------------------------------------------------------
                                 Exercise 3/4
 -----------------------------------------------------------------------------'''
-#find N
-def Ex3n4():
-    exact=mt.pi
-    a=1
-    n=0
-    sum=a
-    for i in range(8,16):
-        e = error(i)
-        print "Erro "+str(e)+":"
-        while(abs(exact-sum)>e):
-            n+=1
-            a=((-1)**n)/(2*n+1)
-            sum+=a
-        print "     |-n: "+str(n)
-        print "     |-Sn: "+str(sum)
-        print "     |-|S-Sn|: "+str(dm.Decimal(abs(exact-sum)))
-    return
 #Ex3
 def Ex3():
     #|Rn|<|an+1|<e
@@ -110,10 +93,29 @@ def Ex3():
         while (abs(a)>e):
             n+=1
             sum+=a
-            a=((-1)**n)/(2*n+1)
-        print "     |-n: "+str(n-1)
+            a=((-1)**(n+1))/(2*(n+1)+1)
+        print "     |-n: "+str(n)
         print "     |-Sn: "+str(dm.Decimal(4*sum))
     return
+#Ex 3 in 4
+def Ex3n4():
+    exact=mt.pi
+    a=1
+    n=0
+    sum=a
+    for i in range(8,16):
+        e = error(i)
+        print "Erro "+str(e)+":"
+        while(abs(exact-4*sum)>e):
+            n+=1
+            a=((-1)**n)/(2*n+1)
+            sum+=a
+        print "     |-n: "+str(n)
+        print "     |-Sn: "+str(dm.Decimal(4*sum))
+        print "     |-|S-Sn|: "+str(dm.Decimal(abs(exact-4*sum)))
+    return
+
+
 #Tests--------------------------------------------------------------------------
 print "Exercicio 2:"
 start=tm.time()
@@ -140,4 +142,5 @@ Ex3n4()
 end=tm.time()
 print "Tempo de execucao: "+str(end-start)
 
-print "Valon epsilon maquina utilizado: "+str(eps)
+print "Valor epsilon maquina utilizado: "+str(eps)
+
